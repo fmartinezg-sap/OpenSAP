@@ -1,0 +1,15 @@
+@EndUserText.label: 'Acces control for ZFM_V_TRAVEL'
+@MappingRole: true
+define role ZFM_V_TRAVEL {
+    grant
+        select
+            on
+                ZFM_V_TRAVEL
+                    where
+                        CurrencyCode = 'EUR'
+                        and 
+                        ( ( TravelStatus ) = aspect pfcg_auth(ZFMOSTATUS, ZFMOSTATUS, ACTVT = '03')
+                        or 
+                        true ) // work around because of ABAP enviroment trial restriction
+                        ;
+}
